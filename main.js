@@ -2,6 +2,26 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+function findClientsSocket(roomId, namespace) {
+	'use strict';
+	var res = []
+	, ns = io.of(namespace ||"/");    // the default namespace is "/"
+
+	if (ns) {
+		for (var id in ns.connected) {
+			if(roomId) {
+				var index = ns.connected[id].rooms.indexOf(roomId) ;
+				if(index !== -1) {
+					res.push(ns.connected[id]);
+				}
+			} else {
+				res.push(ns.connected[id]);
+			}
+		}
+	}
+	return res;
+}
+
 function checkArrValue(arr, value) //ASSOCIATIVE ARRAYS
 {
 	'use strict';
