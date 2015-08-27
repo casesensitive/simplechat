@@ -4,17 +4,11 @@
 	<meta http-equiv="Content-Security-Policy" 
 content="default-src 'self' 'cdn.socket.io' 'code.jquery.com';"> 
     <title>Chat</title>
-    <link rel="stylesheet" href="http://127.0.0.1/node/bin/chat/style.css"/>
+    <link rel="stylesheet" href="http://127.0.0.1/node/bin/chat/CSS/style.css"/>
   </head>
   <body>
 	<script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-	<script>
-		var name = String();
-		var socket = io();
-		name = "Anonymous";
-		socket.emit('user login', name);
-	</script>
     <ul id="messages"></ul>
     <ul id="users"><li id='Anonymous'></li></ul>
     <div id="formHolder">
@@ -25,59 +19,6 @@ content="default-src 'self' 'cdn.socket.io' 'code.jquery.com';">
 			<input id="m" autocomplete="off" /><button>Send</button>
 		</form>
 	</div>
-    <script>
-		var anons = 0;
-		$('#chat').submit(function(){
-			socket.emit('chat message', '['+name+'] '+$('#m').val().replace(/</g, "&lt;").replace(/>/g, "&gt;"));
-			$('#m').val('');
-			return false;
-		});
-		$('#newname').submit(function(){
-			socket.emit('user login', $('#n').val().replace(/</g, "&lt;").replace(/>/g, "&gt;"));
-			return false;
-		});
-		socket.on('chat message', function(msg){
-			msg.replace(/</g, "&lt;").replace(/>/g, "&gt;")
-			$('#messages').append($('<li>').text(msg));
-			$('html, body').animate({ scrollTop: $('#messages').height()}, 20);
-		});
-		socket.on('user login', function(msg){
-			msg.replace(/</g, "&lt;").replace(/>/g, "&gt;")
-			$('#users').append($('<li class="'+msg+'">').text(msg));;
-		});
-		socket.on('userlist', function(msg){
-			msg.replace(/</g, "&lt;").replace(/>/g, "&gt;")
-			$('#users').append($('<li class="'+msg+'">').text(msg));;
-		});
-		socket.on('user confirmation', function(msg){
-			if(msg != 0){
-				name = msg;
-				$('#newname').remove();
-			}
-		});
-		socket.on('anonlist', function(msg){
-			if (typeof(msg) == "number"){
-				$('#Anonymous').html('Anonymous['+msg+']');
-				anons = msg;
-			}
-		});
-		socket.on('new anonymous user', function(msg){
-			if (typeof(msg) == "number"){
-				$('#Anonymous').html('Anonymous['+msg+']');
-				anons = msg;
-			}
-		});
-		socket.on('user unlogin', function(msg){
-			if(msg == "Anonymous"){
-				anons--;
-				$('#Anonymous').html('Anonymous['+(anons)+']');
-			} 
-			else{
-				msg.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-				var a = '.'+msg;
-				$(a).remove();
-			}
-		});
-	</script>
+    <script src="http://127.0.0.1/node/bin/chat/JS/load.js"></script>
   </body>
 </html>
