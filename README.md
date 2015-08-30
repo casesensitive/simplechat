@@ -7,4 +7,5 @@ OBS: files are linked as it would be by a webserver, not NodeJS, so you will nee
 
 # Required libraries
 Client: Jquery and Socket.IO
+
 Server(NodeJS): Express and Socket.IO
