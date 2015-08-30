@@ -1,24 +1,35 @@
 <!doctype html>
 <html>
-  <head>
-	<meta http-equiv="Content-Security-Policy" 
+	<head>
+		<meta http-equiv="Content-Security-Policy" 
 content="default-src 'self' 'cdn.socket.io' 'code.jquery.com';"> 
-    <title>Chat</title>
-    <link rel="stylesheet" href="http://127.0.0.1/node/bin/SimpleChat/CSS/style.css"/>
-  </head>
-  <body>
-	<script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
-	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <ul id="messages"></ul>
-    <ul id="users"><li id='Anonymous'></li></ul>
-    <div id="formHolder">
-		<form id="newname">
-			<input id="n" autocomplete="on" /><button>Leave Anonymity</button>
-		</form>
-		<form id="chat" action="">
-			<input id="m" autocomplete="off" /><button>Send</button>
-		</form>
-	</div>
-    <script src="http://127.0.0.1/node/bin/SimpleChat/JS/load.js"></script>
-  </body>
+		<title>Chat</title>
+		<link rel="stylesheet" href="http://127.0.0.1/node/bin/SimpleChat/CSS/style.css"/>
+		<link rel="stylesheet" href="http://127.0.0.1/node/bin/SimpleChat/CSS/kickstart.min.css">
+		<script src="http://127.0.0.1/node/bin/SimpleChat/JS/socket.io-1.3.5.js"></script>
+		<script src="http://127.0.0.1/node/bin/SimpleChat/JS/jquery-1.11.1.js"></script>
+	</head>
+	<body>
+		<div class="">
+			<div class="row">
+				<div class="col-10">
+					<ul id="messages"></ul>
+				</div>
+				<div class="col-2">
+					<ul id="users"><li id='Anonymous'></li></ul>
+				</div>
+			</div>
+			<div class="row">
+				<div id="formHolder" class="col-12">
+					<form id="newname" class="form">
+						<input id="n" autocomplete="on" /> <button>Leave Anonymity</button>
+					</form>
+					<form id="chat" action="" class="form">
+						<input id="m" autocomplete="off" /> <button>Send</button>
+					</form>
+				</div>
+			</div>
+			<script src="http://127.0.0.1/node/bin/SimpleChat/JS/load.js"></script>
+		</div>
+	</body>
 </html>
