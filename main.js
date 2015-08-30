@@ -12,10 +12,10 @@ function findClientsSocket(roomId, namespace) {
 			if(roomId) {
 				var index = ns.connected[id].rooms.indexOf(roomId) ;
 				if(index !== -1) {
-					res.push(ns.connected[id]);
+					res.push(id);
 				}
 			} else {
-				res.push(ns.connected[id]);
+				res.push(id);
 			}
 		}
 	}
@@ -39,6 +39,20 @@ var users = {};
 var anons = 0;
 var anonsArr = [];
 
+function autoClean(){
+	'use strict';
+	console.log(">Executing scheduled cleaning...");
+	var socks = findClientsSocket();
+	for(var k in users){
+		if(socks.indexOf(users[k]) == -1){
+			console.log(">>Removing user "+k);
+			delete users[k];
+			io.emit("user unlogin", k);
+		}
+	}
+	console.log(">Clean!");
+}
+
 app.get('/', function(req, res){
 	'use strict'; 
 	res.sendFile(__dirname + '/index.html');
@@ -61,10 +75,10 @@ io.on('connection', function(socket){
 				console.log(a+" disconnected");
 				io.emit("user unlogin", a);
 				delete users[a];
-				console.log(users);
 			}
 			else {
-				console.log("unknown disconnection");
+				console.log("unknown disconnection, calling cleaning");
+				autoClean();
 			}
 		}
 	});
@@ -102,5 +116,6 @@ io.on('connection', function(socket){
 http.listen(3000, function(){
 	'use strict'; 
 	console.log('listening on *:3000');
+	setInterval(function(){autoClean()}, 60000);
 });
 
