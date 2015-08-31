@@ -14,16 +14,16 @@ $('#newname').submit(function(){
 	return false;
 });
 socket.on('chat message', function(msg){
-	msg.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+	msg.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 	$('#messages').append($('<li>').text(msg));
 	$('html, body').animate({ scrollTop: $('#messages').height()}, 20);
 });
 socket.on('user login', function(msg){
-	msg.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+	msg.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 	$('#users').append($('<li class="'+msg+'">').text(msg));;
 });
 socket.on('userlist', function(msg){
-	msg.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+	msg.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 	$('#users').append($('<li class="'+msg+'">').text(msg));;
 });
 socket.on('user confirmation', function(msg){
@@ -54,4 +54,9 @@ socket.on('user unlogin', function(msg){
 		var a = '.'+msg;
 		$(a).remove();
 	}
+});
+
+$("#users").on("click", "li", function(){
+	var win = window.open("127.0.0.1:3000/pm/:"+name+"/:"+this.className, '_blank');
+	win.focus();
 });

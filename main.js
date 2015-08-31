@@ -58,6 +58,14 @@ app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/pm/', function(req, res){
+	'use strict'; 
+	app.param(["sender, receiver"], function (req, res, next, value) {
+			console.log(value);
+		});
+	res.sendFile(__dirname + '/index.html');
+});
+
 io.on('connection', function(socket){
 	'use strict'; 
 	console.log('a user connected');

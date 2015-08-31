@@ -50,6 +50,11 @@ body{
 	background: #444466;
 	color: #CDFFC2;
 	padding-left: 1%;
+	cursor: pointer;
+}
+
+#users #Anonymous{
+	cursor: default;
 }
 #users li:nth-child(odd){
 	background: #445E66;
